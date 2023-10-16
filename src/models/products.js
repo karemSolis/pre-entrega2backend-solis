@@ -1,7 +1,7 @@
 //CREANDO EL ESQUEMA O ESTRUCTUR DE LOS DATOS QUE SE GUARDARÁN EN ATLAS
 import mongoose from "mongoose";
 
-const productCollection = "Products" //la colección para atlas 
+const productCollection = "Productos" //la colección para atlas 
 
 //el schema
 const productSchema = mongoose.Schema({

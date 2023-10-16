@@ -1,6 +1,7 @@
 import { Router } from "express";
 import ProductModel from "../models/products.js"; 
 
+
 const productRouter = Router();
 
 productRouter.get("/", async (req, res) => {

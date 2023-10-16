@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const cartCollection = "Carts";
+const cartCollection = "carrito";
 
 const cartSchema = mongoose.Schema({
     products: [{

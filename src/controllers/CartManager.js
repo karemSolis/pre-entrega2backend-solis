@@ -1,6 +1,7 @@
 import cartModel from '../models/cart.js';
 import ProductManager from "./ProductManager.js";
 
+
 const ProductALL = new ProductManager();
 
 class CartManager {

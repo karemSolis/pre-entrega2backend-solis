@@ -3,15 +3,21 @@
 import productModel from "../models/products.js";
 
 class ProductManager {
-  async addProduct(product) {
-    try {
-      const newProduct = new productModel.create(product);
-      await newProduct.save();
-      return "Producto agregado correctamente";
+    async addProduct(product) {
+      try {
+        const newProduct = new productModel.create(product);
+        await newProduct.save();
+        return "Producto agregado correctamente";
     } catch (error) {
-      return "Error al agregar el producto";
+        return "Error al agregar el producto";
     }
   }
+  // async addProduct(product){
+  //   await productModel.create({
+  //       producto:"Serrucho pro",
+  //       descripcion :"Mango plástico",
+  //       valor: 10000,
+  //   })}
 
   async getProducts() {
     try {

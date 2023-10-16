@@ -22,21 +22,30 @@ entre un servidor (backend) y un cliente (fronted), se crea un servidor que func
 const product = new ProductManager(); /*esta variable es la copia de product.routes, pero es de ProductManager y
 todas sus funcionalidades. averiguar + */
 
-const enviroment = async () => {
-    await mongoose.connect('mongodb+srv://soliskarem:8ZCtHpFdS5efORKR@coder.akmkbke.mongodb.net/?retryWrites=true&w=majority')
-    console.log("Atlas conectado")
+// const enviroment = async () => {
+//     await mongoose.connect('mongodb+srv://soliskarem:8ZCtHpFdS5efORKR@coder.akmkbke.mongodb.net/?retryWrites=true&w=majority')
+//     console.log("Atlas conectado")
 
     
-}
-enviroment()
-//middleware
+// }
+// enviroment()
+// //middleware
+
+mongoose.connect('mongodb+srv://soliskarem:8ZCtHpFdS5efORKR@coder.akmkbke.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("Conexión a MongoDB Atlas exitosa");
+  })
+  .catch((error) => {
+    console.error("Error de conexión a MongoDB Atlas: ", error);
+  });
+
 
 //analizarán solicitudes HTTP entrantes y los convertirán en formato json o url
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 
-const User = {};
+
 
 socket.on("connection", (socket) => { /*establece una conexión con socketServer.on, escucha el primer mensaje iniciando comunicación y deja un primer 
 mensaje "connection" el cual se va a desprender desde socket generando una función*/
@@ -81,8 +90,8 @@ app.get("/", async(req, res) =>{
 })
 
 app.use("/realtimeproducts", productRouter)
-app.use("/api/products", productRouter)
-app.use("/api/carts", CartRouter);
+app.use("/api/Productos", productRouter)
+app.use("/api/carritos", CartRouter);
 
 
 

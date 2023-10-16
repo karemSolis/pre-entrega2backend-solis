@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+</head>
+<body>
+    <h1>Carrito de Compras</h1>
+    <div class="cart-details">
+        <h2>Detalles del Carrito</h2>
+        <ul>
+            {{#each products}}
+                <li>
+                    {{this.name}} - Precio: ${{this.price}} - Cantidad: {{this.quantity}}
+                    <button class="remove-from-cart" data-productid="{{this._id}}">Eliminar</button>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+    <a href="/">Volver a la lista de productos</a>
+
+    <script src="">
+        // Agregar aquí el código JavaScript para manejar la eliminación de productos del carrito
+        // Puedes usar eventos de clic para capturar el botón "Eliminar" y realizar la acción correspondiente.
+        // Por ejemplo, puedes enviar una solicitud al servidor para eliminar el producto del carrito.
+    </script>
+</body>
+</html>
