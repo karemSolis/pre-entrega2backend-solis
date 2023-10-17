@@ -79,4 +79,19 @@ productRouter.delete("/:id", async (req, res) => {
   }
 });
 
+//details
+productRouter.get("/details/:id", async (req, res) => {
+  try {
+    const products = await ProductModel.findById(req.params.id);
+    if (product) {
+      res.render("details", { products });
+    } else {
+      res.status(404).json({ error: "Producto no encontrado" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener el producto" });
+  }
+});
+
+
 export default productRouter;
