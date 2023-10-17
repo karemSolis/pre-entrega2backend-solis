@@ -7,41 +7,36 @@ class ProductManager {
       try {
         const newProduct = new productModel.create(product);
         await newProduct.save();
-        return "Producto agregado correctamente";
+        return "Producto agregado";
     } catch (error) {
-        return "Error al agregar el producto";
+        return "No se puede agregar producto";
     }
   }
-  // async addProduct(product){
-  //   await productModel.create({
-  //       producto:"Serrucho pro",
-  //       descripcion :"Mango plástico",
-  //       valor: 10000,
-  //   })}
+
 
   async getProducts() {
     try {
-      const products = await productModel.find();
+      const products = await productModel.find().lean();
       return products;
     } catch (error) {
-      return "Error al obtener productos";
+      return "No se puede obtener producto";
     }
   }
 
   async getProductById(id) {
     try {
-      const product = await productModel.findById(id);
-      if (!product) return "Producto no encontrado";
+      const product = await productModel.findById(id).lean();
+      if (!product) return "No se encontró el producto";
       return product;
     } catch (error) {
-      return "Error al obtener el producto";
+      return "No se puede obtener producto";
     }
   }
 
   async updateProduct(id, product) {
     try {
       const updatedProduct = await productModel.findByIdAndUpdate(id, product, { new: true });
-      if (!updatedProduct) return "Producto no encontrado";
+      if (!updatedProduct) return "No se encuentra producto";
       return "Producto actualizado";
     } catch (error) {
       return "Error al actualizar el producto";
@@ -51,10 +46,10 @@ class ProductManager {
   async deleteProduct(id) {
     try {
       const deletedProduct = await productModel.findByIdAndRemove(id);
-      if (!deletedProduct) return "Producto no encontrado";
+      if (!deletedProduct) return "No se encontró el producto";
       return "Producto eliminado";
     } catch (error) {
-      return "Error al eliminar el producto";
+      return "No se puede eliminar producto";
     }
   }
 }

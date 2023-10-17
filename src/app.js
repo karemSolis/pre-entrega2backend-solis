@@ -45,27 +45,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 
-
-
-socket.on("connection", (socket) => { /*establece una conexión con socketServer.on, escucha el primer mensaje iniciando comunicación y deja un primer 
-mensaje "connection" el cual se va a desprender desde socket generando una función*/
-    console.log("Un usuario conectado") /*esta función nos permite saber si el front se está conectando mediante a este console.log*/
-
-        socket.on("messaje", (data)=>{
-        console.log(data);
-    })
-
-    socket.on("newProduct", productData => {
-
-        product.addProducts(productData)
-    
-        console.log("Nuevo producto recibido:", productData);
-        
-        socket.emit("productAdded", productData);
-    });
-
-})
-
 //estos middlewars son toda la extructura de handlebars
 app.engine("handlebars", engine());  /*acá le digo al servidor que usaremos M.P.handlebars para el uso de express y que será a
 través de engine()*/
@@ -83,13 +62,24 @@ style.css y realtimeproduct.js dentro de public*/
 //ruta a la página principal
 app.get("/", async(req, res) =>{
     let products = await product.getProducts()/*gracias a la constante product copiada y pegada desde product.router puedo reutilizar funciones de rutas hechas ahí */
-    res.render("home", { /*este render nos renderizará el archivo handlebars en main, pero a través de lo que hagamos en home */
-        title: "handlebars y websockets",
+    res.render("products", { /*este render nos renderizará el archivo handlebars en main, pero a través de lo que hagamos en home */
+        title: "Productos",
         products: products,
     })
 })
 
-app.use("/realtimeproducts", productRouter)
+app.get("/products/:id", async (req, res) => {
+  const productId = req.params.id;  // Obtiene el ID del producto desde la URL
+  const products = await product.getProductById(productId);  // Busca el producto por ID
+  res.render("details", { products });  // Pasa el producto encontrado a la vista
+});
+
+
+app.get("/cart", async (req, res) => {
+  res.render("cart", { carts });
+});
+
+
 app.use("/api/Productos", productRouter)
 app.use("/api/carritos", CartRouter);
 

@@ -11,9 +11,10 @@ CartRouter.post("/", async (req, res) => {
   res.send(await carts.addCarts());
 });
 
-// GET api/carts
-CartRouter.get('/', async (req, res) => {
-  res.send(await carts.readCarts());
+// POST api/carts
+CartRouter.post("/", async (req, res) => {
+  const result = await carts.addCarts();
+  res.status(201).json({ message: result });
 });
 
 // GET api/carts/:cid

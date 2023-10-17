@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Producto</title>
+    <link rel="stylesheet" href="/css/style.css"> 
+</head>
+<body>
+    {{#if product}}
+    <h1>{{producto}}</h1>
+    <p>Descripción: {{descripcion}}</p>
+    <p>Precio: {{valor}}</p>
+    <button id="add-to-cart">Agregar al carrito</button> <!-- Botón para agregar al carrito -->
+    {{else}}
+    <p>No se encontró el producto.</p>
+    {{/if}}
+</body>
+</html>

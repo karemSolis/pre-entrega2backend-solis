@@ -4,14 +4,7 @@ import ProductModel from "../models/products.js";
 
 const productRouter = Router();
 
-productRouter.get("/", async (req, res) => {
-  try {
-    const products = await ProductModel.find();
-    res.json(products);
-  } catch (error) {
-    res.status(500).json({ error: "Error al obtener los productos" });
-  }
-});
+
 
 productRouter.get("/:id", async (req, res) => {
   try {
@@ -23,6 +16,15 @@ productRouter.get("/:id", async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error: "Error al obtener el producto" });
+  }
+});
+
+productRouter.get("/", async (req, res) => {
+  try {
+    const products = await ProductModel.find();
+    res.render("products", { products }); // Pasar la lista de productos a la vista
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener los productos" });
   }
 });
 
