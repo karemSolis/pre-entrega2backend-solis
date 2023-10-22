@@ -5,8 +5,10 @@ import { engine } from "express-handlebars"; /*importación de módulo express-h
 import * as path from "path" /*importación del módulo path de node.js, entrega utilidades para trabajar con rutas de archivos y directorios */
 import __dirname from "./utils.js"; /*importación de la variable __dirname desde el archivo utils.js*/
 import ProductManager from "./controllers/ProductManager.js";
-import { Server } from 'socket.io' //importación de librería socket.io
+import CartManager from "./controllers/CartManager.js";
 import mongoose from "mongoose";
+
+
 
 
 
@@ -15,12 +17,10 @@ import mongoose from "mongoose";
 const app = express(); //aquí la creación de la instancia de la apli express
 const httpServer = app.listen(8080, () => console.log( "servidor en el puerto 8080" )); //definición del puerto http
 
-const socket = new Server(httpServer);  /*definición de la librería socket.io la cual permite habilitar la camunicación en tiempo real
-entre un servidor (backend) y un cliente (fronted), se crea un servidor que funciona a través de socket con el servidor que ya creamos. */
-/*PUEDO VER SI ESTÁ CONECTADO EL FRONT CON SOCKET.IO COLOCANDO EN EL NAVEGADOR http://localhost:8080/socket.io/socket.io.js*/
-
 const product = new ProductManager(); /*esta variable es la copia de product.routes, pero es de ProductManager y
 todas sus funcionalidades. averiguar + */
+const carts = new CartManager();
+
 
 // const enviroment = async () => {
 //     await mongoose.connect('mongodb+srv://soliskarem:8ZCtHpFdS5efORKR@coder.akmkbke.mongodb.net/?retryWrites=true&w=majority')
@@ -31,7 +31,7 @@ todas sus funcionalidades. averiguar + */
 // enviroment()
 // //middleware
 
-mongoose.connect('mongodb+srv://soliskarem:8ZCtHpFdS5efORKR@coder.akmkbke.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://soliskarem:yHO8pYSTC6sFsoi1@coder.9lutzzn.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("Conexión a MongoDB Atlas exitosa");
   })
@@ -74,13 +74,15 @@ app.get("/products/:id", async (req, res) => {
   res.render("details", { products });  // Pasa el producto encontrado a la vista
 });
 
-
-app.get("/cart", async (req, res) => {
-  res.render("cart", { carts });
+app.get("/carts", async (req, res) => {
+  const cart = await carts.readCarts(); // Usa cartManager en lugar de carts
+  const productsInCart = await carts.getProductsForCart(cart.products); // Usa cartManager para llamar a getProductsForCart
+  console.log("Datos del carrito:", cart);
+  res.render("carts", { cart, productsInCart }); // Pasa productsInCart a la vista
 });
 
 
-app.use("/api/Productos", productRouter)
+app.use("/api/productos", productRouter)
 app.use("/api/carritos", CartRouter);
 
 

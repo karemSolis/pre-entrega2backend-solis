@@ -7,18 +7,23 @@
 </head>
 <body>
     <h1>Carrito de Compras</h1>
-    <div class="cart-details">
+    <div class="carts">
         <h2>Detalles del Carrito</h2>
-        <ul>
-            {{#each products}}
-                <li>
-                    {{this.products}} - Precio: ${{this.valor}} - Cantidad: {{this.quantity}}
-                    <button class="remove-from-cart" data-productid="{{this._id}}">Eliminar</button>
-                </li>
-            {{/each}}
-        </ul>
+        <!-- Accede a los detalles del carrito -->
+        {{#with cart}}
+            <p>Carrito ID: {{_id}}</p>
+            <!-- Itera sobre los productos en el carrito -->
+            <ul>
+                {{#each productsInCart}}
+                    <li>
+                        Producto ID: {{_id}}
+                        Nombre del producto: {{this.product}} <!-- Suponiendo que tienes una propiedad "name" en tus productos -->
+                        Cantidad: {{quantity}}
+                    </li>
+                {{/each}}
+            </ul>
+        {{/with}}
     </div>
     <a href="/">Volver a la lista de productos</a>
-
 </body>
 </html>

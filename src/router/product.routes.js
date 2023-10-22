@@ -29,12 +29,12 @@ productRouter.get("/", async (req, res) => {
 });
 
 productRouter.post("/", async (req, res) => {
-  const { producto, descripcion, valor } = req.body;
+  const { product, description, price } = req.body;
   try {
     const newProduct = new ProductModel({
-      producto,
-      descripcion,
-      valor,
+      product,
+      description,
+      price
     });
     await newProduct.save();
     res.json(newProduct);
@@ -44,14 +44,14 @@ productRouter.post("/", async (req, res) => {
 });
 
 productRouter.put("/:id", async (req, res) => {
-  const { producto, descripcion, valor } = req.body;
+  const { product, description, price } = req.body;
   try {
     const updatedProduct = await ProductModel.findByIdAndUpdate(
       req.params.id,
       {
-        producto,
-        descripcion,
-        valor,
+        product,
+        description,
+        price
       },
       { new: true }
     );
